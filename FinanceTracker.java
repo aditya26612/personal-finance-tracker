@@ -19,9 +19,9 @@ import java.util.Scanner;
  */
 public class FinanceTracker {
 
-    private static Scanner scanner = new Scanner(System.in);
-    private static PersistenceManager pm = new PersistenceManager();
-    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final PersistenceManager pm = new PersistenceManager();
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void main(String[] args) {
         System.out.println("=========================================");
@@ -37,17 +37,13 @@ public class FinanceTracker {
             String choice = scanner.nextLine();
 
             switch (choice) {
-                case "1":
-                    handleLogin();
-                    break;
-                case "2":
-                    handleRegister();
-                    break;
-                case "3":
+                case "1" -> handleLogin();
+                case "2" -> handleRegister();
+                case "3" -> {
                     System.out.println("Thank you for using Finance Tracker. Goodbye!");
                     return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -110,30 +106,17 @@ public class FinanceTracker {
 
             try {
                 switch (choice) {
-                    case "1":
-                        handleAddTransaction(user);
-                        break;
-                    case "2":
-                        handleViewTransactions(user);
-                        break;
-                    case "3":
-                        handleManageAccounts(user);
-                        break;
-                    case "4":
-                        handleManageCategories(user);
-                        break;
-                    case "5":
-                        handleManageBudgets(user);
-                        break;
-                    case "6":
-                        handleRunReports(user);
-                        break;
-                    case "7":
+                    case "1" -> handleAddTransaction(user);
+                    case "2" -> handleViewTransactions(user);
+                    case "3" -> handleManageAccounts(user);
+                    case "4" -> handleManageCategories(user);
+                    case "5" -> handleManageBudgets(user);
+                    case "6" -> handleRunReports(user);
+                    case "7" -> {
                         loggedIn = false;
                         System.out.println("Logging out...");
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
+                    }
+                    default -> System.out.println("Invalid choice. Please try again.");
                 }
                 // Save user data after every action
                 if (loggedIn) {
@@ -141,7 +124,6 @@ public class FinanceTracker {
                 }
             } catch (Exception e) {
                 System.out.println("An error occurred: " + e.getMessage());
-                e.printStackTrace();
             }
         }
     }
@@ -462,6 +444,11 @@ public class FinanceTracker {
             if (obj == null || getClass() != obj.getClass()) return false;
             Category category = (Category) obj;
             return name.equals(category.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return name != null ? name.hashCode() : 0;
         }
     }
 
