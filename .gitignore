@@ -1,0 +1,7 @@
+﻿# Ignore compiled bytecode and editors
+*.class
+*.log
+bin/
+obj/
+.vscode/
+Thumbs.db
